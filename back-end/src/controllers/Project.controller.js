@@ -1,6 +1,22 @@
 
 const Project = require('../models/Project.model');
 module.exports = {
+    getAll:async(req,res)=>{
+        try{
+            let project = await Project.find();
+            return res.json({
+                Data: project,
+                ErrorCode: 0,
+                Message: `Success`,
+            })
+        }catch(err){
+            return res.json({
+                Data: [],
+                ErrorCode: 99,
+                Message: `Lỗi trong quá trình xử lý - ${err}`,
+            });
+        }
+    },
     get:async(req,res)=>{
         try{
             const {projectId} = req.body;
@@ -95,12 +111,12 @@ module.exports = {
     },
     delete:async(req,res)=>{
         try{
-            const {projectId} = req.body;
-            if (!projectId) {
+            const {id} = req.body;
+            if (!id) {
                 console.log("Invalid data passed into request");
                 return res.sendStatus(400);
             }
-            let project = await Project.deleteOne({_id:projectId});
+            let project = await Project.deleteOne({_id:id});
             console.log(project);
             if(project){
                 return res.json({

@@ -1,5 +1,21 @@
 const Method = require('../models/Method.model');
 module.exports = {
+    getAll:async(req,res)=>{
+        try{
+            let method = await Method.find();
+            return res.json({
+                Data: method,
+                ErrorCode: 0,
+                Message: `Success`,
+            })
+        }catch(err){
+            return res.json({
+                Data: [],
+                ErrorCode: 99,
+                Message: `Lỗi trong quá trình xử lý - ${err}`,
+            });
+        }
+    },
     get:async(req,res)=>{
         try{
             const {methodId} = req.body;

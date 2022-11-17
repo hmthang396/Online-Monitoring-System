@@ -51,6 +51,17 @@ const nodeSchema = mongoose.Schema({
         type:String,
         trim:true,
     },
+    /**
+     * unit : mg/L, ppm , m3/h, ....
+     */
+    unit:{
+        type:String,
+        trim:true,
+    },
+    tag:{
+        type:String,
+        trim:true,
+    },
     project:{
         type : mongoose.Schema.Types.ObjectId,
         ref:"Project",

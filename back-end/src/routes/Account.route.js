@@ -1,6 +1,9 @@
 const express = require("express");
 let router = express.Router();
 const accountController = require("../controllers/Account.controller");
+const loginController = require("../controllers/Login.controller");
+router.post("/login",loginController.login);
+router.get("/all",accountController.getAll);
 router.get("/",accountController.get);
 router.post("/",accountController.post);
 router.put("/",accountController.put);

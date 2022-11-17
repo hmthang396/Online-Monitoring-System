@@ -1,6 +1,22 @@
 const RoleAccount = require('../models/RoleAccount.model');
 const Account = require('../models/Account.model');
 module.exports = {
+    getAll:async(req,res)=>{
+        try{
+            let account = await Account.find().select("-password").populate('project').populate('permission');
+            return res.json({
+                Data: account,
+                ErrorCode: 0,
+                Message: `Success`,
+            })
+        }catch(err){
+            return res.json({
+                Data: [],
+                ErrorCode: 99,
+                Message: `Lỗi trong quá trình xử lý - ${err}`,
+            });
+        }
+    },
     get:async(req,res)=>{
         try{
             const {accountId} = req.body;
@@ -26,7 +42,7 @@ module.exports = {
     },
     post:async(req,res)=>{
         try{
-            const {fullname,email,password,role,pic,projectId,read,write} = req.body;
+            const {fullname,email,password,role,pic,projectId,read,write,status} = req.body;
             if (!fullname || !email || !password || !role ||!projectId) {
                 console.log("Invalid data passed into request");
                 return res.sendStatus(400);
@@ -42,7 +58,8 @@ module.exports = {
                 role,
                 pic,
                 project:[...new Set(projectId)],
-                permission:roleAccount._id
+                permission:roleAccount._id,
+                status
             });
             if(account){
                 let data = await Account.findOne({
@@ -81,7 +98,8 @@ module.exports = {
                 email,
                 role,
                 pic,
-                project:[...new Set(projectId)]
+                project:[...new Set(projectId)],
+                status
             });
             await RoleAccount.updateOne({
                 _id:accountUpdate.permission

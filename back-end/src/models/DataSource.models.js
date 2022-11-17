@@ -33,7 +33,7 @@ const dataSourceSchema = mongoose.Schema({
     },
     /*
      * with ADS is Target port //851
-     * with OPCUA is 4880
+     * with OPCUA is 4840
      * with Modbus is 502
      */
     port:{
@@ -60,8 +60,8 @@ const dataSourceSchema = mongoose.Schema({
         default:'None',
     },
     /*
-     * with OPCUA in Anonymous
-     * can be null with ADS of Modbus
+     * with Modbus in slave address
+     * can be null with ADS and OPCUA
      */
     unitId: {
         type:mongoose.Schema.Types.Number,

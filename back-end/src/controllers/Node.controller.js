@@ -2,6 +2,26 @@ const Node = require('../models/Node.model');
 const DataSource = require('../models/DataSource.models');
 const RoleNode = require('../models/RoleNode.model');
 module.exports = {
+    getAll:async(req,res)=>{
+        try{
+            let node = await Node.find()
+            .populate('project')
+            .populate('method')
+            .populate('datasource')
+            .populate('role');
+            return res.json({
+                Data: node,
+                ErrorCode: 0,
+                Message: `Success`,
+            })
+        }catch(err){
+            return res.json({
+                Data: [],
+                ErrorCode: 99,
+                Message: `Lỗi trong quá trình xử lý - ${err}`,
+            });
+        }
+    },
     get:async(req,res)=>{
         try{
             const {nodeId} = req.body;
@@ -30,18 +50,15 @@ module.exports = {
     },
     post:async(req,res)=>{
         try{
-            const {name,description,type,variable,quantity,code,projectId,methodId,host,target,source,port,securityMode,securityPolicy,unitId,read,write,history} = req.body;
-            let dataSource = await DataSource.create({
-                method:methodId,host,target,source,port,securityMode,securityPolicy,unitId
-            });
+            const {name,description,type,variable,unit,tag,quantity,code,projectId,methodId,dataSourceId,read,write,history} = req.body;
             let roleNode = await RoleNode.create({
                 read,write,history
             });
             let node = await Node.create({
-                name,description,type,variable,quantity,code,
+                name,description,type,variable,quantity,code,unit,tag,
                 project : projectId,
                 method : methodId,
-                datasource : dataSource._id,
+                datasource : dataSourceId,
                 role : roleNode._id
             });
             if(node){
@@ -127,13 +144,13 @@ module.exports = {
     },
     delete:async(req,res)=>{
         try{
-            const {nodeId} = req.body;
-            if (!nodeId) {
+            const {id} = req.body;
+            if (!id) {
                 console.log("Invalid data passed into request");
                 return res.sendStatus(400);
             }
             let node = await Node.findOne({
-                _id: nodeId
+                _id: id
             }).populate('project')
             .populate('method')
             .populate('datasource')
@@ -149,7 +166,7 @@ module.exports = {
                 })
             }
             return res.json({
-                Data: [],
+                Data: null,
                 ErrorCode: 0,
                 Message: `Success`,
             })

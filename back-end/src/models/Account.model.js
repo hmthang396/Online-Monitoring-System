@@ -36,6 +36,10 @@ const accountSchema = mongoose.Schema({
     permission:{
         type : mongoose.Schema.Types.ObjectId,
         ref:"RoleAccount",
+    },
+    status:{
+        type:mongoose.Schema.Types.Boolean,
+        default: false
     }
 },
 {

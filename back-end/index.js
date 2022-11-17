@@ -39,6 +39,7 @@ app.use("/RoleNode",require('./src/routes/RoleNode.route'));
 app.use("/Method",require('./src/routes/Method.route'));
 app.use("/Node",require('./src/routes/Node.route'));
 app.use("/Data",require('./src/routes/Data.route'));
+app.use("/DataSource",require('./src/routes/DataSource.route'));
 //Config PORT
 //======================================================================
 app.listen(process.env.PORT, function(err) {
