@@ -6,4 +6,5 @@ router.get("/all",projectController.getAll);
 router.post("/",projectController.post);
 router.put("/",projectController.put);
 router.delete("/",projectController.delete);
+router.post("/:accountId",projectController.getProjectByAccountId);
 module.exports = router;

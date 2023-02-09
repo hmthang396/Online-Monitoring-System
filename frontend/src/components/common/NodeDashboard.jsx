@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import { Box, } from 'react-feather'
 import { Card, CardBody, Col, Media } from 'reactstrap';
 import CountUp from "react-countup";
-
+const checkNumber = (para)=>{
+    if(!isNaN(para)){
+        return parseFloat(para).toFixed(2);
+    }
+    return para;
+};
 const NodeDashboard = (props) => {
     return (
         <Col xl="3 xl-50" md="6">
@@ -17,7 +22,7 @@ const NodeDashboard = (props) => {
                         <Media body className="col-8">
                             <span className="m-0">{props?.title}</span>
                             <h3 className="mb-0">
-                                {(props?.value)}
+                                {checkNumber(props?.value)}
                                 {/* <CountUp className="counter" end={props?.value} /> */}
                                 <small> {props?.unit}</small>
                             </h3>

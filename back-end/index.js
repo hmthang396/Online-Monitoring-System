@@ -46,6 +46,7 @@ app.use("/Node",authentication, require('./src/routes/Node.route'));
 app.use("/Data",authentication, require('./src/routes/Data.route'));
 app.use("/DataSource",authentication, require('./src/routes/DataSource.route'));
 app.use("/History",authentication, require('./src/routes/History.route'));
+app.use("/Report", require('./src/routes/Report.route'));
 //Config PORT
 //======================================================================
 app.listen(process.env.PORT, function (err) {

@@ -1,6 +1,13 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
+  
+  app.use(
+    createProxyMiddleware("/Node/Project", {
+      target: 'http://localhost:4000',
+      changeOrigin: true,
+    })
+  );
   app.use(
     createProxyMiddleware("/Account/login", {
       target: 'http://localhost:4000',

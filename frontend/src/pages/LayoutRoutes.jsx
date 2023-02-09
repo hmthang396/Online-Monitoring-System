@@ -13,6 +13,8 @@ import ListUser from './ListUser'
 import History from './History'
 import Report from './Report'
 import Setting from './Setting'
+import AddReport from './AddReport'
+import ListReport from './ListReport'
 
 const LayoutRoutes = () => {
   return (
@@ -68,6 +70,14 @@ const LayoutRoutes = () => {
           <Route 
           path={`${process.env.PUBLIC_URL}/settings`}
           element={<Setting />}
+          />
+          <Route 
+          path={`${process.env.PUBLIC_URL}/create-report`}
+          element={<AddReport />}
+          />
+          <Route 
+          path={`${process.env.PUBLIC_URL}/list-report`}
+          element={<ListReport />}
           />
         </Route>
       </Routes>

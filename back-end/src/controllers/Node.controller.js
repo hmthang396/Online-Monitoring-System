@@ -6,24 +6,52 @@ const Project = require('../models/Project.model');
 module.exports = {
     getNodeByAccountId: async (req, res) => {
         try {
-            const {accountId} = req.body;
+            const { accountId } = req.body;
             let account = await Account.findOne({
-                _id:accountId,
+                _id: accountId,
             }).select("-password").populate('project').populate('permission');
             let nodes = await Node.find({
-                project:account.project.map(element=>{return element._id})
+                project: account.project.map(element => { return element._id })
             }).populate('project')
-            .populate('role');
+                .populate('role');
             let listNodeGroupByProject = [];
-            account.project.forEach(element=>{
+            account.project.forEach(element => {
                 let a = nodes.filter(node => (node.project._id.toString() == element._id.toString()));
                 listNodeGroupByProject.push({
-                    project : element,
-                    nodes : a
+                    project: element,
+                    nodes: a
                 })
             });
             return res.json({
                 Data: listNodeGroupByProject,
+                ErrorCode: 0,
+                Message: `Success`,
+            })
+        } catch (err) {
+            return res.json({
+                Data: [],
+                ErrorCode: 99,
+                Message: `Lỗi trong quá trình xử lý - ${err}`,
+            });
+        }
+    },
+    getNodeByProjectId: async (req, res) => {
+        try {
+            const { projectId } = req.body;
+            let nodes = await Node.find({
+                project: projectId
+            })
+                .populate('role');
+            if(nodes){
+                let listNode = nodes.filter((element)=>element.role.history);
+                return res.json({
+                    Data: listNode,
+                    ErrorCode: 0,
+                    Message: `Success`,
+                })
+            }
+            return res.json({
+                Data: [],
                 ErrorCode: 0,
                 Message: `Success`,
             })

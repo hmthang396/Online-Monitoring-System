@@ -90,7 +90,7 @@ const NodeSetting = (props) => {
                     <CardBody className="bg-secondary">
                         <FormGroup>
                             <Label for="exampleAddress">
-                                {props.node.name} - Not Boolean
+                                {props.node.name}
                             </Label>
                             {
                                 props.node.value !== "Lock" &&

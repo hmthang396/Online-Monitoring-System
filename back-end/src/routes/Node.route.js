@@ -4,6 +4,7 @@ const nodeController = require("../controllers/Node.controller");
 router.post("/history",nodeController.getNodeByAccountId);
 router.get("/",nodeController.get);
 router.get("/all",nodeController.getAll);
+router.post("/Project",nodeController.getNodeByProjectId);
 router.post("/",nodeController.post);
 router.put("/",nodeController.put);
 router.delete("/",nodeController.delete);

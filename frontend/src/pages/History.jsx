@@ -149,7 +149,7 @@ const History = () => {
                         <Card>
                             <CardBody>
                                 <Label className="col-form-label">
-                                    Method
+                                    Node
                                 </Label>
                                 <select className="custom-select" required="" name='method' onChange={(e) => { setNodeId(e.target.value); setTitle(e.target.selectedOptions[0].innerHTML); }}>
                                     <option>--SELECT--</option>

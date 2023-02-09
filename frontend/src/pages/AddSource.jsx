@@ -37,8 +37,9 @@ const AddSource = () => {
     }
   }, [error]);
   const formSubmitHandler = (e) => {
+    e.preventDefault();
     if (user && user.role === "Admin") {
-      e.preventDefault();
+
       if (methodId && host) {
         postFetch(`/DataSource`, user.accessToken, {
           methodId, host, target, source, port, securityMode, securityPolicy, unitId,
