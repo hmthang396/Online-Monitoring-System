@@ -15,12 +15,17 @@ import Report from './Report'
 import Setting from './Setting'
 import AddReport from './AddReport'
 import ListReport from './ListReport'
+import Info from './Info'
 
 const LayoutRoutes = () => {
   return (
     <Fragment>
       <Routes>
         <Route element={<Layout />}>
+          <Route
+            path={`${process.env.PUBLIC_URL}/`}
+            element={<Info />}
+          />
           <Route
             path={`${process.env.PUBLIC_URL}/dashboard`}
             element={<Dashboard />}
@@ -59,25 +64,25 @@ const LayoutRoutes = () => {
             path={`${process.env.PUBLIC_URL}/list-user`}
             element={<ListUser />}
           />
-          <Route 
-          path={`${process.env.PUBLIC_URL}/history`}
-          element={<History />}
+          <Route
+            path={`${process.env.PUBLIC_URL}/history`}
+            element={<History />}
           />
-          <Route 
-          path={`${process.env.PUBLIC_URL}/reports`}
-          element={<Report />}
+          <Route
+            path={`${process.env.PUBLIC_URL}/reports`}
+            element={<Report />}
           />
-          <Route 
-          path={`${process.env.PUBLIC_URL}/settings`}
-          element={<Setting />}
+          <Route
+            path={`${process.env.PUBLIC_URL}/settings`}
+            element={<Setting />}
           />
-          <Route 
-          path={`${process.env.PUBLIC_URL}/create-report`}
-          element={<AddReport />}
+          <Route
+            path={`${process.env.PUBLIC_URL}/create-report`}
+            element={<AddReport />}
           />
-          <Route 
-          path={`${process.env.PUBLIC_URL}/list-report`}
-          element={<ListReport />}
+          <Route
+            path={`${process.env.PUBLIC_URL}/list-report`}
+            element={<ListReport />}
           />
         </Route>
       </Routes>

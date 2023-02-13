@@ -23,7 +23,7 @@ module.exports = {
                 }).select("-password").select("-refreshToken").populate('project').populate('permission');
                 const accessToken = await jwt.sign(
                     { email: result.email.toString() },
-                    "secret", { expiresIn: "1m", algorithm: "HS256" }
+                    "secret", { expiresIn: "60m", algorithm: "HS256" }
                 );
                 const refreshToken = await jwt.sign({ email: result.email.toString() },
                     "$2a$10$aLOx0tlQYKfsu9RgpPIEEubyB8G.hff.mNEsMaxrJTtbCc5VdnTGy", { expiresIn: "1 day", algorithm: "HS256" }

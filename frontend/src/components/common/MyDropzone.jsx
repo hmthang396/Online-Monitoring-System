@@ -5,6 +5,7 @@ import { postFetch } from '../../config/fetchData';
 const MyDropzone = ({getFile}) => {
     const [files,setFiles] = useState(null);
     const getUploadParams = ({ file, meta }) => {
+        console.log(file);
         getFile(file);
         // data.append("upload_preset", "Online-Monitoring-System");
         // data.append("cloud_name", "hmthang396");

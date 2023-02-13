@@ -5,27 +5,35 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 const path = require("path");
 const connectDB = require("./src/db/db");
-const testing = require('./src/config/History');
+const saveData = require('./src/config/History');
 const authentication = require("./src/middleware/authentication");
+const InitCheck = require("./src/services/initCheck");
 // Configuration 
 //===============================================================
 
-setInterval(testing.getHistory,1000);
+setInterval(saveData.getHistory,1000);
 // Connect to Database
 //======================================================================
 (async () => {
     try {
         await connectDB();
+        await InitCheck.IsCreated();
+        await InitCheck.IsMethodCreated();
     } catch (error) {
         console.error(error);
     }
 })();
+
+// Lưu dữ liệu theo thời gian 
+//===============================================================
+setInterval(saveData.getHistory,1000);
 
 // cài đặt ứng dùng express
 //======================================================================
 dotenv.config();
 const app = express();
 app.use(cors());
+app.use(bodyParser.raw());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(

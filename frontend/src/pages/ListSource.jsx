@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Card, CardBody, CardHeader, Container } from 'reactstrap'
 import Authorization from '../components/common/Authorization';
 import Breadcrumb from '../components/common/Breadcrumb'
-import Datatable from '../components/common/Datatable';
+import Datatable from '../components/common/Datatable2';
 import { getFetch } from '../config/fetchData';
 import { UserState } from '../context/User';
 
@@ -55,7 +55,7 @@ const ListSource = () => {
                                 {
                                     sources.length > 0 &&
                                     <Datatable
-                                        multiSelectOption={true}
+                                        multiSelectOption={false}
                                         myData={sources}
                                         pageSize={10}
                                         pagination={true}

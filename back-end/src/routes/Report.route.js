@@ -6,4 +6,5 @@ router.post("/", reportController.create);
 router.get("/", reportController.getAll);
 router.get("/Download/:filename",reportController.downloadFile);
 router.post("/DownloadReport",reportController.downloadREportFile);
+router.delete("/",reportController.delete);
 module.exports = router;

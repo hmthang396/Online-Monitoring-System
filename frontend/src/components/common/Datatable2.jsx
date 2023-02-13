@@ -3,7 +3,7 @@ import DataTable from 'react-data-table-component'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import { deleteFetch, getFetch, postFetch, putFetch } from '../../config/fetchData'
+import { deleteFetch, getFetch, postFetch } from '../../config/fetchData'
 import { UserState } from '../../context/User';
 const Datatable = ({ myData, myClass, multiSelectOption, pagination, url, edit }) => {
 	const { user, setUser } = UserState();
@@ -11,9 +11,6 @@ const Datatable = ({ myData, myClass, multiSelectOption, pagination, url, edit }
 	const [checkedValues, setCheckedValues] = useState([]);
 	const [data, setData] = useState(myData);
 	const [projects, setProjects] = useState([]);
-	const [projectId, setProjectId] = useState(null);
-	const [id, setId] = useState();
-
 	const selectRow = (e, i) => {
 		if (!e.target.checked) {
 			setCheckedValues(checkedValues.filter((item, j) => i !== item));
@@ -56,39 +53,19 @@ const Datatable = ({ myData, myClass, multiSelectOption, pagination, url, edit }
 		);
 	};
 
-	const handleValidSubmit = (e,index) => {
+	const handleValidSubmit = (e,index)=>{
 		e.preventDefault();
-		putFetch(`${url}/addProject`, user.accessToken, { projectId, accountId: data[id].id })
-			.then((result) => {
-				if (result.ErrorCode == 98) {
-					setUser(result.Data);
-					localStorage.setItem("userInfo", JSON.stringify(data.Data));
-					toast.warning("Please Try Again!");
-					setOpen(false);
-				} else if (data.ErrorCode == 0) {
-					console.log(data);
-					toast.success("Successfully Updated !");
-				}else{
-					toast.warning(`${data.Message}`);
-				}
-			})
-			.catch((err) => { toast.error("Error Update !"); })
+		postFetch(``)
 	};
 
 	const handleDelete = (index) => {
-		console.log(id);
+		console.log(data[index]);
 		if (window.confirm("Are you sure you wish to delete this item?") && user) {
 			const del = data;
-			deleteFetch(`${url}`, { id: data[index].id }, user.accessToken).then((result) => {
-				if (result.ErrorCode == 98) {
-					setUser(result.Data);
-					localStorage.setItem("userInfo", JSON.stringify(data.Data));
-					toast.warning("Please Try Again!");
-					setOpen(false);
-				} else if (data.ErrorCode == 0) {
+			deleteFetch(`${url}`, { id: data[index].id }, user.accessToken).then((data) => {
+				if (data.Data) {
 					del.splice(index, 1);
 					setData([...del]);
-					console.log(data);
 					toast.success("Successfully Deleted !");
 				} else {
 					toast.error("Error Deleted !");
@@ -96,8 +73,7 @@ const Datatable = ({ myData, myClass, multiSelectOption, pagination, url, edit }
 			}).catch((err) => { toast.error("Error Deleted !"); })
 		}
 	};
-	const onOpenModal = (index) => {
-		setId(index);
+	const onOpenModal = () => {
 		if (projects.length === 0 && user) {
 			getFetch(`/Project/all`, user.accessToken).then((data) => {
 				if (data.ErrorCode == 98) {
@@ -210,71 +186,9 @@ const Datatable = ({ myData, myClass, multiSelectOption, pagination, url, edit }
 								padding: 11,
 								color: "#e4566e",
 							}}
-						>
-						</i>
+						></i>
 					</span>
-
-					<span>
-						<i
-							onClick={() => onOpenModal(index)}
-							className="fa fa-plus"
-							style={{
-								width: 35,
-								fontSize: 20,
-								padding: 11,
-								color: "rgb(40, 167, 69)",
-							}}
-						>
-						</i>
-						<Modal
-							isOpen={open}
-							toggle={onCloseModal}
-							style={{ overlay: { opacity: 0.1 } }}
-						>
-							<Form onSubmit={(e) => { handleValidSubmit(e, index) }}> 
-								
-								<ModalHeader toggle={onCloseModal}>
-									<h5 className="modal-title f-w-600" id="exampleModalLabel2">
-										Add Project
-									</h5>
-								</ModalHeader>
-								<ModalBody>
-
-									<FormGroup>
-										<Label htmlFor="recipient-name" className="col-form-label">
-											Project Name :
-										</Label>
-										<select className="form-control" required onChange={(e) => { setProjectId(e.target.value) }}>
-											<option>---SELECT---</option>
-											{
-												projects.length > 0 &&
-												projects.map((element) => {
-													return <option key={element.id} value={element.id}>{element.name}</option>
-												})
-											}
-										</select>
-									</FormGroup>
-
-								</ModalBody>
-								<ModalFooter>
-									<Button
-										type="submit"
-										color="primary"
-										onClick={() => onCloseModal("VaryingMdo")}
-									>
-										Update
-									</Button>
-									<Button
-										color="secondary"
-										onClick={() => onCloseModal("VaryingMdo")}
-									>
-										Close
-									</Button>
-								</ModalFooter>
-							</Form>
-						</Modal>
-					</span>
-				</div >
+				</div>
 			),
 			style: {
 				textAlign: "center",

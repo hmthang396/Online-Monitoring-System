@@ -134,7 +134,7 @@ const AddSource = () => {
                         </FormGroup>
                       }
                       {
-                        methodId &&
+                        methodId?.title !== "Ethernet/IP" &&
                         <FormGroup>
                           <Label className="col-form-label pt-0"> Port</Label>
                           <Input

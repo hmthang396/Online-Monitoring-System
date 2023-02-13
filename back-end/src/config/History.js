@@ -1,6 +1,4 @@
 const Node = require('../models/Node.model');
-const RoleNode = require('../models/RoleNode.model');
-const DataSource = require('../models/DataSource.models');
 const History = require('../models/History.model');
 const getData = require('../services/services');
 const moment = require('moment');
@@ -20,7 +18,7 @@ const getHistory = async () => {
         nodes.forEach(async (node) => {
             if (node.role.history) {
                 let value = await getData.historyVariable(node);
-                console.log(`${moment(timeNow).format("HH:mm:ss DD/MM/YYYY")} - Value: ${value}`);
+				console.log(`Time: ${moment(timeNow).format(`DD-MM-YYYY HH:mm:ss`)}\tValue:${value}`);
                 History.create({
                     value,
                     nodeId: node._id,

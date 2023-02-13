@@ -218,7 +218,6 @@ module.exports = {
                 .populate('role');
             if (node) {
                 await Node.findByIdAndDelete({ _id: node._id });
-                await DataSource.deleteOne({ _id: node.datasource._id });
                 await RoleNode.deleteOne({ _id: node.role._id });
                 return res.json({
                     Data: node,

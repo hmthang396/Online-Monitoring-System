@@ -3,8 +3,10 @@ import { Unlock, User } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { UserState } from '../../context/User';
 
 const LoginTabset = () => {
+    const { user,setUser } = UserState();
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
     const [loading, setLoading] = useState(false);
@@ -34,7 +36,7 @@ const LoginTabset = () => {
             })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                setUser(data.Data);
                 localStorage.setItem("userInfo",JSON.stringify(data.Data));
                 setLoading(false);
                 history(`${process.env.PUBLIC_URL}/dashboard`);

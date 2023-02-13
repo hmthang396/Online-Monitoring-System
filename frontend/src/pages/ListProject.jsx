@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Card, CardBody, CardHeader, Container } from 'reactstrap';
 import Breadcrumb from '../components/common/Breadcrumb';
-import Datatable from '../components/common/Datatable';
+import Datatable from '../components/common/Datatable2';
 import { getFetch } from '../config/fetchData';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,7 +35,7 @@ const ListProject = () => {
     }, [error])
     return (
         <Fragment>
-            <Breadcrumb title="List Node" parent="Nodes" />
+            <Breadcrumb title="List Project" parent="Projects" />
             {
                 user.role === "Admin" &&
                 <Container fluid={true}>
@@ -56,7 +56,7 @@ const ListProject = () => {
                                 {
                                     projects.length > 0 &&
                                     <Datatable
-                                        multiSelectOption={true}
+                                        multiSelectOption={false}
                                         myData={projects}
                                         pageSize={10}
                                         pagination={true}

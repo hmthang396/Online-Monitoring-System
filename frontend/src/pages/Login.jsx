@@ -6,21 +6,31 @@ import stats from "../assets/images/dashboard/stats.png";
 import LoginTabset from '../components/auth/LoginTabset';
 import "../assets/scss/slick.scss";
 import "../assets/scss/slick-theme.scss";
+import { UserState } from '../context/User';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 let logo1 = "http://localhost:3000/LogoNK.png";
 const Login = () => {
-    var settings = {
+	const { user, setUser } = UserState();
+	const nav = useNavigate();
+	var settings = {
 		dots: true,
 		infinite: true,
 		speed: 500,
 		arrows: false,
 	};
-    return (
-        <Fragment>
-            <div className="page-wrapper">
-                <div className="authentication-box">
-                    <Container>
-                        <Row>
-                            {/* <Col className="col-md-5 p-0 card-left">
+	useEffect(()=>{
+		if(!user){
+			nav(`${process.env.PUBLIC_URL}/dashboard`)
+		}
+	},[])
+	return (
+		<Fragment>
+			<div className="page-wrapper">
+				<div className="authentication-box">
+					<Container>
+						<Row>
+							{/* <Col className="col-md-5 p-0 card-left">
                                 <Card className="bg-success" style={{backgroundImage:`url(${logo1})`, backgroundRepeat: "no-repeat","backgroundSize": "contain"}}>
                                     <div className="svg-icon">
                                         <img alt="" src={stats} className="Img-fluid" />
@@ -53,19 +63,19 @@ const Login = () => {
 									</Slider>
                                 </Card>
                             </Col> */}
-                            <Col className="col-md-12 p-0 card-right">
+							<Col className="col-md-12 p-0 card-right">
 								<Card className="tab2-card">
 									<CardBody>
 										<LoginTabset />
 									</CardBody>
 								</Card>
 							</Col>
-                        </Row>
-                    </Container>
-                </div>
-            </div>
-        </Fragment>
-    )
+						</Row>
+					</Container>
+				</div>
+			</div>
+		</Fragment>
+	)
 }
 
 export default Login

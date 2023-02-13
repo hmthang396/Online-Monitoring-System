@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import { Card, CardBody, CardHeader, Container } from 'reactstrap'
 import Authorization from '../components/common/Authorization'
 import Breadcrumb from '../components/common/Breadcrumb'
-import Datatable from '../components/common/Datatable'
+import Datatable from '../components/common/Datatable2'
 import { getFetch } from '../config/fetchData'
 import { UserState } from '../context/User'
 
@@ -55,7 +55,7 @@ const ListReport = () => {
                                 {
                                     reports.length > 0 &&
                                     <Datatable
-                                        multiSelectOption={true}
+                                        multiSelectOption={false}
                                         myData={reports}
                                         pageSize={10}
                                         pagination={true}

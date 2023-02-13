@@ -61,11 +61,12 @@ export const downloadPostFetch = async (url,accessToken,body) => {
         return error;
     }
 };
-export const deleteFetch = async (url, body) => {
+export const deleteFetch = async (url, body,accessToken) => {
     let dataFetch = await fetch(url, {
         method: "DELETE",
         headers: {
             "Content-type": "application/json;charset=utf-8",
+            "Authorization" : accessToken,
             method: "DELETE",
         },
         body: JSON.stringify(body)
@@ -73,11 +74,12 @@ export const deleteFetch = async (url, body) => {
     let data = await dataFetch.json();
     return data;
 };
-export const putFetch = async (url, body) => {
+export const putFetch = async (url,accessToken, body) => {
     let dataFetch = await fetch(url, {
         method: "PUT",
         headers: {
             "Content-type": "application/json;charset=utf-8",
+            "Authorization" : accessToken,
             method: "PUT",
         },
         body: JSON.stringify(body)

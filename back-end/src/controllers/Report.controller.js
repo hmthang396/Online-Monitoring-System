@@ -176,4 +176,32 @@ module.exports = {
             });
         }
     },
+    delete: async (req, res) => {
+        try {
+            const { id } = req.body;
+            if (!id) {
+                console.log("Invalid data passed into request");
+                return res.sendStatus(400);
+            }
+            let report = await Report.deleteOne({ _id: id });
+            if (report) {
+                return res.json({
+                    Data: report,
+                    ErrorCode: 0,
+                    Message: `Success`,
+                })
+            }
+            return res.json({
+                Data: [],
+                ErrorCode: 0,
+                Message: `Success`,
+            })
+        } catch (err) {
+            return res.json({
+                Data: [],
+                ErrorCode: 99,
+                Message: `Lỗi trong quá trình xử lý - ${err}`,
+            });
+        }
+    }
 };

@@ -65,12 +65,12 @@ const ListUser = () => {
                 {
                   users.length > 0 &&
                   <Datatable
-                    multiSelectOption={true}
+                    multiSelectOption={false}
                     myData={users}
                     pageSize={10}
                     pagination={true}
                     class="-striped -highlight"
-                    url={`/Project`}
+                    url={`/Account`}
                   />
                 }
               </div>

@@ -2,8 +2,8 @@ const { Controller, Tag, EthernetIP } = require('ethernet-ip');
 
 module.exports = {
     read: async (node, account) => {
+        const PLC = new Controller();
         try {
-            const PLC = new Controller();
             PLC.on('error', () => {
                 return "error";
             });
@@ -25,13 +25,14 @@ module.exports = {
             }
         } catch (err) {
             console.log(`readEtherNetIP:\n ${err}`);
+            PLC.destroy();
             return "Error";
         }
     },
 
     readControl: async (node, account) => {
+        const PLC = new Controller();
         try {
-            const PLC = new Controller();
             PLC.on('error', () => {
                 return "error";
             });
@@ -53,6 +54,7 @@ module.exports = {
             }
         } catch (err) {
             console.log(`readEtherNetIP:\n ${err}`);
+            PLC.destroy();
             return "Error";
         }
     },
@@ -83,6 +85,21 @@ module.exports = {
         } catch (err) {
             console.log(`try catch EtherNetIP write ${err}`);
             return false;
+        }
+    },
+
+    history: async (node) => {
+        const PLC = new Controller();
+        try {
+            await PLC.connect(node.datasource.host.toString());
+            let tag = new Tag(node.variable.toString());
+            await PLC.readTag(tag);
+            PLC.destroy();
+            return tag.value;
+        } catch (err) {
+            console.log(err);
+            PLC.destroy();
+            return "Error";
         }
     }
 }

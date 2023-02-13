@@ -212,9 +212,9 @@ module.exports = {
             if (node.method.method.toString() == "ADS") {
                 return await ads.history(node);
             }
-            // if(node.method.method.toString() == "Ethernet/IP"){
-
-            // }
+            if(node.method.method.toString() == "Ethernet/IP"){
+                return await ethernetIP.history(node);
+            }
             return "Error";
         } catch (err) {
             console.log(`try catch historyVariable ${err}`);

@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Fragment>
       <Routes>
-        <Route path={`${process.env.PUBLIC_URL}/`} exact element={<Login/>}/>
+        {/* <Route path={`${process.env.PUBLIC_URL}/`} exact element={<Login/>}/> */}
         <Route path={`${process.env.PUBLIC_URL}/auth/login`} exact element={<Login/>}/>
         <Route path={`${process.env.PUBLIC_URL}/auth/logout`} exact element={<Logout/>}/>
         <Route path={`/*`} element={<LayoutRoutes/>}/>

@@ -36,8 +36,8 @@ const TabsetUser = () => {
         setWrite(a[0].checked);
     };
     const fileHandler = (file) => {
-
         setPic(file);
+        console.log(pic);
     }
     useEffect(() => {
         if (user) {
@@ -59,22 +59,25 @@ const TabsetUser = () => {
     const formSubmitHandler = (e) => {
         if (user) {
             e.preventDefault();
-            const data = new FormData();
-            data.append("fullname", fullname);
-            data.append("email", email);
-            data.append("password", password);
-            data.append("projectId", projectId);
-            data.append("role", role);
-            data.append("read", read);
-            data.append("write", write);
-            data.append("status", status);
-            data.append("file", pic);
+            console.log(pic);
+            const form = new FormData();
+            form.append("fullname", fullname);
+            form.append("email", email);
+            form.append("password", password);
+            form.append("projectId", projectId);
+            form.append("role", role);
+            form.append("read", read);
+            form.append("write", write);
+            form.append("status", status);
+            form.append("file", pic);
+            /*
+            JSON.stringify({
+                    fullname,email,password,projectId,role,read,write,status
+                })
+             */
             fetch(`http://localhost:4000/Account`, {
                 method: "POST",
-                headers: {
-                    "Content-type": "application/json;charset=utf-8",
-                },
-                body: data
+                body: form
             })
                 .then((res) => res.json())
                 .then((data) => {
@@ -256,7 +259,7 @@ const TabsetUser = () => {
                             </div>
                         </FormGroup>
                         <FormGroup className="row">
-                            <Label className="col-form-label pt-0"> Product Upload</Label>
+                            <Label className="col-form-label pt-0"> Avatar</Label>
                             <MyDropzone getFile={fileHandler} />
                         </FormGroup>
                     </TabPanel>

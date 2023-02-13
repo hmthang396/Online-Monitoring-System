@@ -19,5 +19,6 @@ router.get("/all",authentication,accountController.getAll);
 router.get("/",authentication,accountController.get);
 router.post("/",upload.single("file"),accountController.post);
 router.put("/",authentication,accountController.put);
+router.put("/addProject",authentication,accountController.putProject);
 router.delete("/",authentication,accountController.delete);
 module.exports = router;

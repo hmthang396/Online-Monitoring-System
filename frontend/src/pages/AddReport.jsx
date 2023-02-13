@@ -10,6 +10,7 @@ import makeAnimated from 'react-select/animated';
 import "react-toastify/dist/ReactToastify.css";
 import { Bold } from 'react-feather'
 import Authorization from '../components/common/Authorization'
+import { useNavigate } from 'react-router-dom'
 const options = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
@@ -26,6 +27,7 @@ const AddReport = () => {
     const [row, setRow] = useState(null);
     const [col, setCol] = useState(null);
     const [error, setError] = useState(false);
+    const nav = useNavigate();
 
     useEffect(() => {
         if (user && user.role === "Admin" && files.length === 0) {
@@ -62,6 +64,16 @@ const AddReport = () => {
         if (user && user.role === "Admin") {
             postFetch(`/Report`, user.accessToken, { file, row, col, project, nodes })
                 .then((data) => {
+                    if (data.ErrorCode == 98) {
+                        setUser(data.Data);
+                        localStorage.setItem("userInfo", JSON.stringify(data.Data));
+                        toast.error("Updated AccessToken");
+                    } else if (data.ErrorCode == 0) {
+                        toast.success("Success");
+                        nav(`${process.env.PUBLIC_URL}/list-report`);
+                    } else {
+                        toast.error("Error!!!");
+                    }
                     console.log(data);
                 })
                 .catch((error) => {

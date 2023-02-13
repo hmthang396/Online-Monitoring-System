@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactDatePicker from 'react-datepicker';
-import { Button, Card, CardBody, CardHeader, Col, Container, Label, Row } from 'reactstrap'
+import { Button, Card, CardBody, CardHeader, Col, Container, Input, Label, Row } from 'reactstrap'
 import Breadcrumb from '../components/common/Breadcrumb'
 import { getFetch, postFetch } from '../config/fetchData';
 import { toast, ToastContainer } from "react-toastify";
@@ -36,6 +36,8 @@ const History = () => {
     const [endDate, setEndDate] = useState(new Date().getTime());
     const [title, setTitle] = useState(null);
     const [error, setError] = useState(false);
+    const [line, setLine] = useState();
+
     useEffect(() => {
         if (nodes.length === 0) {
             if (user) {
@@ -50,12 +52,13 @@ const History = () => {
                     } else if (data.ErrorCode == 0) {
                         setNodes(data.Data);
                     }
-                }).catch((error)=>{
+                }).catch((error) => {
                     console.log(error);
                 })
             }
         }
-    }, [user,error]);
+    }, [user, error]);
+
     const handleStartDate = (date) => {
         let time = new Date(date);
         time.setHours(0, 0, 0, 0);
@@ -67,6 +70,7 @@ const History = () => {
         time.setHours(23, 59, 59, 0);
         setEndDate(time.getTime());
     };
+
     const timeOptions = {
         year: 'numeric',
         month: '2-digit',
@@ -76,6 +80,7 @@ const History = () => {
         second: '2-digit',
 
     };
+
     let Options = {
         maintainAspectRatio: false,
         legend: {
@@ -103,11 +108,11 @@ const History = () => {
             },
         },
     };
+
     const submitHandle = () => {
         if (user) {
             getFetch(`/History/${nodeId}/${startDate}/${endDate}`, user.accessToken)
                 .then(data => {
-                    console.log(data);
                     if (data.ErrorCode == 98) {
                         setUser(data.Data);
                         localStorage.setItem("userInfo", JSON.stringify(data.Data));
@@ -118,13 +123,16 @@ const History = () => {
                         let labels = [];
                         let history = [];
                         data.Data.forEach((element) => {
-                            console.log(new Date(element.time).toLocaleDateString("en-GB", timeOptions));
                             labels.push(new Date(element.time).toLocaleDateString("en-US", timeOptions));
                             history.push(parseFloat(element.value));
                         });
-                        console.log(data.Data);
                         setData({
                             labels: labels,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
                             datasets: [{
                                 label: `${title}`,
                                 backgroundColor: "rgba(53, 162, 235, 0.5)",
@@ -139,6 +147,18 @@ const History = () => {
 
                 })
         }
+    };
+
+    const addLineHandler = () => {
+        let datasetsOld = new Array(...data.datasets);
+        datasetsOld.push({
+            label: `Line - ${line}`,
+            backgroundColor: "rgba(0, 0, 255, 0.5)",
+            borderColor: "rgb(0, 0, 255)",
+            data: Array(data.datasets[0].data.length).fill(line)
+        });
+        let dataNew = { ...data,datasets:datasetsOld  }
+        setData(dataNew);
     };
     return (
         <div>
@@ -205,6 +225,27 @@ const History = () => {
                             </CardBody>
                         </Card>
                     </Col>
+                    <Col sm="3">
+                        <Card>
+                            <CardBody>
+                                <Label className="col-form-label">
+                                    Value Line
+                                </Label>
+                                <Input type='number' onChange={(e) => { setLine(e.target.value) }} />
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col sm="3">
+                        <Card>
+                            <CardBody>
+                                <Label className="col-form-label">
+                                    Add Line
+                                </Label>
+                                <Button type="submit" color="primary" style={{ width: "100%" }} onClick={addLineHandler}>Add</Button>
+                            </CardBody>
+                        </Card>
+                    </Col>
+
                     <Col sm="12">
                         <Card>
                             <CardHeader>
@@ -218,7 +259,7 @@ const History = () => {
                                             data={data}
                                             options={Options}
                                             width={700}
-                                            height={300}
+                                            height={500}
                                         />
                                     }
 
