@@ -20,20 +20,22 @@ const AddProject = () => {
             if (code && description && name) {
                 postFetch(`/Project`, user.accessToken, {
                     code, description, name
-                }).then((data) => {
-                    if (data.ErrorCode == 98) {
-                        setUser(data.Data);
-                        localStorage.setItem("userInfo", JSON.stringify(data.Data));
-                    } else if (data.ErrorCode == 0) {
-                        toast.success("Success");
-                        history(`${process.env.PUBLIC_URL}/product-list`);
-                    } else {
+                })
+                    .then((data) => {
+                        if (data.ErrorCode == 98) {
+                            setUser(data.Data);
+                            localStorage.setItem("userInfo", JSON.stringify(data.Data));
+                        } else if (data.ErrorCode == 0) {
+                            toast.success("Success");
+                            history(`${process.env.PUBLIC_URL}/product-list`);
+                        } else {
+                            toast.error("Error!!!");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
                         toast.error("Error!!!");
-                    }
-                }).catch((err) => {
-                    console.log(err);
-                    toast.error("Error!!!");
-                });
+                    });
             } else {
                 toast.warn("Vui Lòng Điền Đầy Đủ Thông Tin!");
             }

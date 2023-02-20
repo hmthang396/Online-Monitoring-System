@@ -6,7 +6,7 @@ import { getFetch, postFetch } from '../../config/fetchData';
 import { UserState } from '../../context/User';
 import MyDropzone from '../common/MyDropzone';
 import { toast, ToastContainer } from 'react-toastify';
-
+import {HOST} from '../../constants/hostBE';
 const TabsetUser = () => {
     const nav = useNavigate();
     const [projects, setProjects] = useState([]);
@@ -75,7 +75,7 @@ const TabsetUser = () => {
                     fullname,email,password,projectId,role,read,write,status
                 })
              */
-            fetch(`http://localhost:4000/Account`, {
+            fetch(`${HOST}/Account`, {
                 method: "POST",
                 body: form
             })

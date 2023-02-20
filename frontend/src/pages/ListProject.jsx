@@ -13,6 +13,32 @@ const ListProject = () => {
     const [error, setError] = useState(false);
     useEffect(() => {
         if (user && user.role === "Admin" && projects.length == 0) {
+            // fetch(`${HOST}/Project/all`, {
+            //     method: "GET",
+            //     headers: {
+            //         "Content-type": "application/json;charset=utf-8",
+            //         "Authorization": user.accessToken,
+            //         method: "GET",
+            //     },
+            // })
+            //     .then((result) => { result.json(); })
+            //     .then((data) => {
+            //         if (data.ErrorCode == 98) {
+            //             setUser(data.Data);
+            //             localStorage.setItem("userInfo", JSON.stringify(data.Data));
+            //             setError(true);
+            //         } else if (data.ErrorCode == 0) {
+            //             let listProject = data.Data.map(project => {
+            //                 return {
+            //                     id: project._id,
+            //                     code: project.code,
+            //                     name: project.name,
+            //                     description: project.description,
+            //                 };
+            //             })
+            //             setProject(listProject);
+            //         }
+            //     })
             getFetch(`/Project/all`, user.accessToken).then((data) => {
                 if (data.ErrorCode == 98) {
                     setUser(data.Data);

@@ -50,6 +50,7 @@ const History = () => {
                         localStorage.setItem("userInfo", JSON.stringify(data.Data));
                         setError(true);
                     } else if (data.ErrorCode == 0) {
+                        console.log(data);
                         setNodes(data.Data);
                     }
                 }).catch((error) => {
@@ -162,7 +163,7 @@ const History = () => {
     };
     return (
         <div>
-            <Breadcrumb title="Reports" parent="Reports" />
+            <Breadcrumb title="History" parent="History" />
             <Container fluid={true}>
                 <Row>
                     <Col sm="3">
@@ -178,7 +179,9 @@ const History = () => {
                                         nodes.map((node) => {
                                             return <optgroup label={node.project.description} key={node.project._id}>
                                                 {node.nodes.map((element) => {
-                                                    return <option value={element._id} key={element._id}>{element.description}</option>
+                                                    if(element.role.history){
+                                                        return <option value={element._id} key={element._id}>{element.description}</option>
+                                                    }
                                                 })}
                                             </optgroup>
                                         })

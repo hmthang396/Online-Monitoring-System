@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { UserState } from '../../context/User';
-
+import {HOST} from '../../constants/hostBE'
 const LoginTabset = () => {
     const { user,setUser } = UserState();
     const [email,setEmail] = useState();
@@ -23,7 +23,7 @@ const LoginTabset = () => {
             return;
         }
         try{
-            fetch("/Account/login",{
+            fetch(`${HOST}/Account/login`,{
                 method : "POST",
                 headers: {
                   "Content-type": "application/json;charset=utf-8",

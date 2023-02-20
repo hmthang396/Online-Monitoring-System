@@ -56,7 +56,7 @@ const Header = () => {
                     <div className="main-header-left d-lg-none">
                         <div className="logo-wrapper">
                             <Link >
-                                <img className="blur-up lazyloaded" src={logo} alt="" />
+                                <img className="blur-up lazyloaded" src={`${logo}`} alt="" />
                             </Link>
                         </div>
                     </div>

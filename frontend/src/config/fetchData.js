@@ -1,10 +1,11 @@
+import { HOST } from "../constants/hostBE";
 
-export const postFetch = async (url, accessToken,body) => {
-    let dataFetch = await fetch(url, {
+export const postFetch = async (url, accessToken, body) => {
+    let dataFetch = await fetch(`${HOST}${url}`, {
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=utf-8",
-            "Authorization" : accessToken,
+            "Authorization": accessToken,
             method: "POST",
         },
         body: JSON.stringify(body)
@@ -12,61 +13,61 @@ export const postFetch = async (url, accessToken,body) => {
     let data = await dataFetch.json();
     return data;
 };
-export const getFetch = async (url,accessToken) => {
-    try{
-        let dataFetch = await fetch(url, {
+export const getFetch = async (url, accessToken) => {
+    try {
+        let dataFetch = await fetch(`${HOST}${url}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json;charset=utf-8",
-                "Authorization" : accessToken,
+                "Authorization": accessToken,
                 method: "GET",
             },
         });
         let data = await dataFetch.json();
         return data;
-    }catch(error){
+    } catch (error) {
         return error;
     }
 };
-export const downloadFetch = async (url,accessToken) => {
-    try{
-        let dataFetch = await fetch(url, {
+export const downloadFetch = async (url, accessToken) => {
+    try {
+        let dataFetch = await fetch(`${HOST}${url}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json;charset=utf-8",
-                "Authorization" : accessToken,
+                "Authorization": accessToken,
                 method: "GET",
             },
         });
         let data = await dataFetch.blob();
         return data;
-    }catch(error){
+    } catch (error) {
         return error;
     }
 };
-export const downloadPostFetch = async (url,accessToken,body) => {
-    try{
-        let dataFetch = await fetch(url, {
+export const downloadPostFetch = async (url, accessToken, body) => {
+    try {
+        let dataFetch = await fetch(`${HOST}${url}`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json;charset=utf-8",
-                "Authorization" : accessToken,
+                "Authorization": accessToken,
                 method: "POST",
             },
             body: JSON.stringify(body)
         });
         let data = await dataFetch.blob();
         return data;
-    }catch(error){
+    } catch (error) {
         return error;
     }
 };
-export const deleteFetch = async (url, body,accessToken) => {
-    let dataFetch = await fetch(url, {
+export const deleteFetch = async (url, body, accessToken) => {
+    let dataFetch = await fetch(`${HOST}${url}`, {
         method: "DELETE",
         headers: {
             "Content-type": "application/json;charset=utf-8",
-            "Authorization" : accessToken,
+            "Authorization": accessToken,
             method: "DELETE",
         },
         body: JSON.stringify(body)
@@ -74,12 +75,12 @@ export const deleteFetch = async (url, body,accessToken) => {
     let data = await dataFetch.json();
     return data;
 };
-export const putFetch = async (url,accessToken, body) => {
-    let dataFetch = await fetch(url, {
+export const putFetch = async (url, accessToken, body) => {
+    let dataFetch = await fetch(`${HOST}${url}`, {
         method: "PUT",
         headers: {
             "Content-type": "application/json;charset=utf-8",
-            "Authorization" : accessToken,
+            "Authorization": accessToken,
             method: "PUT",
         },
         body: JSON.stringify(body)

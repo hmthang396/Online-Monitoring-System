@@ -1,6 +1,7 @@
 import React from 'react'
 //Picture User
 import man from "../../../assets/images/dashboard/man.png";
+import { HOST } from '../../../constants/hostBE';
 import { UserState } from '../../../context/User';
 const UserPanel = () => {
 
@@ -11,7 +12,7 @@ const UserPanel = () => {
                 <div>
                     <img
                         className="img-60 rounded-circle lazyloaded blur-up"
-                        src={`http://localhost:4000/Image/${user?.pic}`}
+                        src={`${HOST}/Image/${user?.pic}`}
                         alt="#"
                     />
                 </div>

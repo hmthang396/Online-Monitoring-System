@@ -86,7 +86,7 @@ const AddReport = () => {
         if (user && user.role === "Admin" && nodes.length === 0) {
             const data = new FormData();
             data.append("projectId", id);
-            postFetch(`http://localhost:4000/Node/Project`, user.accessToken, {
+            postFetch(`/Node/Project`, user.accessToken, {
                 projectId: id
             })
 

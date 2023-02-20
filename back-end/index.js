@@ -10,7 +10,7 @@ const authentication = require("./src/middleware/authentication");
 const InitCheck = require("./src/services/initCheck");
 // Configuration 
 //===============================================================
-
+const {TextDecoder, TextEncoder} = require("util");
 setInterval(saveData.getHistory,1000);
 // Connect to Database
 //======================================================================

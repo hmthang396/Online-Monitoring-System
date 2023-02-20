@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Card, CardBody, CardHeader, Container, Row } from 'reactstrap'
 import Breadcrumb from '../components/common/Breadcrumb'
 import NodeSetting from '../components/common/NodeSetting';
+import { postFetch } from '../config/fetchData';
 import { UserState } from '../context/User';
 
 const Setting = () => {
@@ -28,7 +29,9 @@ const Setting = () => {
         setContext(<div>Loading...</div>);
         setLoading(true);
         if (user) {
-            fetchNode(user._id).then((result) => {
+            postFetch(`/Data/ReadVariableControl`, user.accessToken, {
+                accountId: user._id,
+            }).then((result) => {
                 if (result.ErrorCode === 98) {
                     setUser(result.Data);
                     localStorage.setItem("userInfo", JSON.stringify(result.Data));
